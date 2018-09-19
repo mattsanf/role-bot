@@ -36,7 +36,7 @@ Client.on('message', msg => {
     }
 
     // Get the role
-    let role = msg.guild.roles.find("name", args[1].toLowerCase());
+    let role = msg.guild.roles.find("name", args[1]);
 
     if (!role || role === null) {
       msg.channel.sendMessage('Could not find a role by that name.')

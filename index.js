@@ -5,13 +5,13 @@ let dotenv = require('dotenv');
 // Grabs the BOT_TOKEN from .env and stores in on the `process.env`
 dotenv.load()
 
-let allowedSystems = process.env.ALLOWED_SYSTEMS.split(',')
+let allowedRoles = process.env.ALLOWED_SYSTEMS.split(',')
 let botToken = process.env.BOT_TOKEN
 
 // allowed strings
 let allowedString = ''
-allowedSystems.forEach((system) => {
-  allowedString = allowedString.concat('- ' + system + '\n')
+allowedRoles.forEach((role) => {
+  allowedString = allowedString.concat('- ' + role + '\n')
 })
 
 Client.on('message', msg => {
@@ -22,34 +22,34 @@ Client.on('message', msg => {
     || msg.author.bot
   ) return
 
-  if (msg.content.startsWith(prefix + 'system')) {
+  if (msg.content.startsWith(prefix + 'role')) {
 
     // Get args
     let args = msg.content.split(" ");
 
     if (args.length < 2 || args[1] == '--help') {
-      msg.channel.sendMessage('These are the systems you\'re allowed to travel to: \n'+
+      msg.channel.sendMessage('These are the roles you\'re allowed to join: \n'+
         allowedString +
-        '\nuse "!system `<system_name>` to travel to a system')
+        '\nuse "!role `<role_name>` to join a role')
 
       return
     }
 
-    // Get the system
-    let system = msg.guild.systems.find("name", args[1].toLowerCase());
+    // Get the role
+    let role = msg.guild.roles.find("name", args[1].toLowerCase());
 
-    if (!system || system === null) {
-      msg.channel.sendMessage('Could not find a system by that name.')
+    if (!role || role === null) {
+      msg.channel.sendMessage('Could not find a role by that name.')
       return
     }
 
-    if (allowedSystems.indexOf(system.name) === -1) {
-      msg.channel.sendMessage('Doesn\'t look like you\'re allowed to travel there. \nFor a list of allowed systems type `!system --help`')
+    if (allowedRoles.indexOf(role.name) === -1) {
+      msg.channel.sendMessage('Doesn\'t look like you\'re allowed to join that group. \nFor a list of allowed roles type `!role --help`')
       return
     }
 
-    msg.member.addRole(system).catch(console.error);
-    msg.channel.sendMessage('You have traveled to: ' + system.name)
+    msg.member.addRole(role).catch(console.error);
+    msg.channel.sendMessage('You\'ve been added to: ' + role.name)
 
     return
   }
@@ -58,12 +58,12 @@ Client.on('message', msg => {
 Client.on("guildMemberAdd", member => {
     console.log(`New User "${member.user.username}" has joined "${member.guild.name}"` );
 
-    //member.guild.defaultChannel.sendMessage(`Welcome "${member.user.username}"! Be sure to set your platform by typing "!system"`);
+    //member.guild.defaultChannel.sendMessage(`Welcome "${member.user.username}"! Be sure to set your platform by typing "!role"`);
 })
 
 Client.on('ready', () => {
-  Client.user.setGame('type !system --help')
-  console.log(`Ready to set systems in ${Client.channels.size} channels on ${Client.guilds.size} servers, for a total of ${Client.users.size} users.`)
+  Client.user.setGame('type !role --help')
+  console.log(`Ready to set roles in ${Client.channels.size} channels on ${Client.guilds.size} servers, for a total of ${Client.users.size} users.`)
 })
 
 Client.on('error', e => { console.error(e) })

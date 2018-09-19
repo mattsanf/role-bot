@@ -48,6 +48,12 @@ Client.on('message', msg => {
       return
     }
 
+    msg.member.roles.forEach((role) => {
+      if (allowedRoles.indexOf(role.name) != -1) {
+        msg.member.removeRole(role).catch(console.error);
+      }
+    })
+
     msg.member.addRole(role).catch(console.error);
     msg.channel.send('You\'ve been added to: ' + role.name)
 

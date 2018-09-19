@@ -28,7 +28,7 @@ Client.on('message', msg => {
     let args = msg.content.split(" ");
 
     if (args.length < 2 || args[1] == '--help') {
-      msg.channel.sendMessage('These are the roles you\'re allowed to join: \n'+
+      msg.channel.send('These are the roles you\'re allowed to join: \n'+
         allowedString +
         '\nuse "!role `<role_name>` to join a role')
 
@@ -39,17 +39,17 @@ Client.on('message', msg => {
     let role = msg.guild.roles.find("name", args[1]);
 
     if (!role || role === null) {
-      msg.channel.sendMessage('Could not find a role by that name.')
+      msg.channel.send('Could not find a role by that name.')
       return
     }
 
     if (allowedRoles.indexOf(role.name) === -1) {
-      msg.channel.sendMessage('Doesn\'t look like you\'re allowed to join that group. \nFor a list of allowed roles type `!role --help`')
+      msg.channel.send('Doesn\'t look like you\'re allowed to join that group. \nFor a list of allowed roles type `!role --help`')
       return
     }
 
     msg.member.addRole(role).catch(console.error);
-    msg.channel.sendMessage('You\'ve been added to: ' + role.name)
+    msg.channel.send('You\'ve been added to: ' + role.name)
 
     return
   }
@@ -62,7 +62,7 @@ Client.on("guildMemberAdd", member => {
 })
 
 Client.on('ready', () => {
-  Client.user.setGame('type !role --help')
+  Client.user.setActivity('type !role --help')
   console.log(`Ready to set roles in ${Client.channels.size} channels on ${Client.guilds.size} servers, for a total of ${Client.users.size} users.`)
 })
 

@@ -1,7 +1,7 @@
 {
-  "name": "role-bot",
+  "name": "fv-spaceship",
   "version": "1.0.0",
-  "description": "Discord bot to allow users to self assign roles",
+  "description": "Discord bot to allow users to travel Acheron Rho. Based on https://github.com/messerli90/role-bot",
   "main": "index.js",
   "engines": {
     "node": "6.9.1"
@@ -23,10 +23,10 @@
     "roles",
     "bot"
   ],
-  "author": "Michael Messerli <michaelamesserli@gmail.com>",
+  "author": "Matthew Sanford <matthew.p.sanford@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/messerli90/role-bot/issues"
+    "url": "https://github.com/mattsanf/role-bot/issues"
   },
-  "homepage": "https://github.com/messerli90/role-bot#readme"
+  "homepage": "https://github.com/mattsanf/role-bot#readme"
 }

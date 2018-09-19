@@ -25,13 +25,13 @@ Client.on('message', msg => {
   if (msg.content.startsWith(prefix + 'travel_to')) {
 
     // Get args
-    let [first, ...second] = str.split(" ")
+    let [first, ...second] = msg.content.split(" ")
     args = second.join(" ")
 
     if (args == '--help') {
       msg.channel.send('These are the systems you\'re allowed to travel to: \n'+
         allowedString +
-        '\nuse "!travel_to `<system name>` to travel to that system')
+        '\nuse "!travel_to `<system name>`" to travel to that system')
 
       return
     }
@@ -42,7 +42,7 @@ Client.on('message', msg => {
     });
 
     if (!role || role === null) {
-      msg.channel.send('Could not find a system by that name.')
+      msg.channel.send('Could not find a system by the name of ' + args)
       return
     }
 
@@ -59,9 +59,9 @@ Client.on('message', msg => {
       }
     })
 
-    msg.member.addRole(role).catch(console.error).then(() => {
+    msg.member.addRole(role).then(() => {
       msg.channel.send(`${msg.member.displayName} has traveled to ${role.name} from ${from}`)
-    });
+    }).catch(console.error)
 
     return
   }

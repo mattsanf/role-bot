@@ -49,7 +49,7 @@ Client.on('message', msg => {
     }
 
     msg.member.addRole(system).catch(console.error);
-    msg.channel.sendMessage('You\'ve have traveled to: ' + system.name)
+    msg.channel.sendMessage('You have traveled to: ' + system.name)
 
     return
   }
